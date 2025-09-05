@@ -32,7 +32,6 @@ app.get('/canciones', async (req, res) => {
 
 app.post('/crearusuario', async (req, res) => {
   const user = req.body;
-  console.log(user);
 
   if (!user.nombre || !user.password || !user.userid) {
     return res.status(400).json({ mesagge: "Debe completar todos los campos" })
@@ -41,7 +40,6 @@ app.post('/crearusuario', async (req, res) => {
   try {
     const client = new Client(config);
     await client.connect();
-    console.log("conectado bro");
 
     const hashedPassword = await bcrypt.hash(user.password, 10);
     user.password = hashedPassword;
@@ -56,6 +54,48 @@ app.post('/crearusuario', async (req, res) => {
 
   } catch (err) {
     return res.status(500).json({ mesagge: err.mesagge });
+  }
+});
+
+app.post('/login', (req, res) => {
+  const user = req.body;
+  if (!user.password || !user.userid) {
+    return res.status(400).json({ mesagge: "Debe completar todos los campos" })
+  }
+
+  try {
+    let result = await client.query("SELECT * FROM usuarios WHERE id = $1", 
+    [user.userid]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Usuario no encontrado" })
+    }
+
+    let dbUser = result.rows[0];
+    const passOK = await bcrypt.compare(user.password, dbUser.password);
+
+    const payload = {
+      id: dbUser.id,
+      name: dbUser.nombre
+    }
+
+    const secretKey = "BEGEBE2009"
+
+    const options = {
+      expiresin: '30',
+      issuer: 'ort'
+    }
+
+    const token = jwt.sign(payload, secretKey, options);
+
+    if (passOK)
+    {
+      res.send({nombre: dbUser.nombre, token: token});
+    } else { res.send("Clave invalida") }
+
+  } catch (err) {
+    return res.status(500).json( { message: err.mesagge });
   }
 });
 
