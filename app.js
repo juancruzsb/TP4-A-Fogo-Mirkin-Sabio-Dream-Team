@@ -57,14 +57,17 @@ app.post('/crearusuario', async (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   const user = req.body;
   if (!user.password || !user.userid) {
     return res.status(400).json({ mesagge: "Debe completar todos los campos" })
   }
 
   try {
-    let result = await client.query("SELECT * FROM usuarios WHERE id = $1", 
+    const client = new Client(config);
+    await client.connect();
+
+    let result = await client.query("SELECT * FROM usuario WHERE id = $1", 
     [user.userid]
     );
 
@@ -83,7 +86,7 @@ app.post('/login', (req, res) => {
     const secretKey = "BEGEBE2009"
 
     const options = {
-      expiresin: '30',
+      expiresIn: '30',
       issuer: 'ort'
     }
 
@@ -95,7 +98,7 @@ app.post('/login', (req, res) => {
     } else { res.send("Clave invalida") }
 
   } catch (err) {
-    return res.status(500).json( { message: err.mesagge });
+    return res.status(500).json( { message: err.message });
   }
 });
 
