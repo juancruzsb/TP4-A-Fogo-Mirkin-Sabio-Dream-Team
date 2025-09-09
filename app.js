@@ -11,6 +11,7 @@ const app = express()
 app.use(express.json());
 
 const PORT = 8000
+const secretKey = "BEGEBE2009"
 
 app.get('/', (req, res) => {
   res.send('Hello World')
@@ -83,10 +84,8 @@ app.post('/login', async (req, res) => {
       name: dbUser.nombre
     }
 
-    const secretKey = "BEGEBE2009"
-
     const options = {
-      expiresIn: '30',
+      expiresIn: '100h',
       issuer: 'ort'
     }
 
@@ -99,6 +98,26 @@ app.post('/login', async (req, res) => {
 
   } catch (err) {
     return res.status(500).json( { message: err.message });
+  }
+});
+
+app.post('/escucho', async (req, res) => {
+  let token = req.body.token;
+  let payloadOriginal = null;
+
+  try {
+    payloadOriginal = await jwt.verify(token, secretKey);
+
+    const client = new Client(config);
+    await client.connect();
+
+    let result = await client.query('SELECT * FROM escucha WHERE "usuarioID" = $1', 
+    [payloadOriginal.id]
+    );
+
+    res.send(result.rows);
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
 });
 
