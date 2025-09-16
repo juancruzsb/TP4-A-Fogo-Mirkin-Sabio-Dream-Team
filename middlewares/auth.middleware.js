@@ -15,3 +15,17 @@ export const verifyToken = async (req, res, next) => {
         return res.status(401).send({ error: 'Unauthorized' })
     }
 }
+
+export const verifyAdmin = async (req, res, next) => {
+    const user = req.user;
+
+    if (!user) {
+        return res.status(401).json({ error: 'No se encontró usuario en la request' });
+    }
+
+    if (!user.rol) {
+        return res.status(403).send({ error: 'Not admin' });
+    } 
+
+    next();
+}
