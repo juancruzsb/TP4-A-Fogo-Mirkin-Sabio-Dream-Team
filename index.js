@@ -1,15 +1,10 @@
-import {config} from './dbconfig.js'
 import express from "express";
 import 'dotenv/config';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
-import pkg from 'pg'
-const {Client} = pkg;
-
+import cors from 'cors'
+import cancionesRouter from './routes/canciones.router.js'
 const app = express()
 app.use(express.json());
-
+app.use(cors())
 const PORT = 8000
 const secretKey = "BEGEBE2009"
 
@@ -21,15 +16,7 @@ app.get('/about', (req, res) => {
   res.send('About route 🎉 ')
 })
 
-app.get('/canciones', async (req, res) => {
-  const client = new Client(config);
-  await client.connect();
-  let result = await client.query("select * from public.canciones");
-  await client.end();
-  console.log(result.rows);
-  res.send(result.rows)
-
-})
+app.get('/canciones', cancionesRouter)
 
 app.post('/crearusuario', async (req, res) => {
   const user = req.body;
