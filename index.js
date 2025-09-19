@@ -2,11 +2,12 @@ import express from "express";
 import 'dotenv/config';
 import cors from 'cors'
 import cancionesRouter from './routes/canciones.router.js'
+import authRouter from './routes/auth.router.js';
 const app = express()
 app.use(express.json());
 app.use(cors())
 const PORT = 8000
-const secretKey = "BEGEBE2009"
+
 
 app.get('/', (req, res) => {
   res.send('Hello World')
@@ -16,7 +17,8 @@ app.get('/about', (req, res) => {
   res.send('About route 🎉 ')
 })
 
-app.get('/canciones', cancionesRouter)
+app.use('/canciones', cancionesRouter);
+app.use('/auth', authRouter)
 
 app.post('/crearusuario', async (req, res) => {
   const user = req.body;

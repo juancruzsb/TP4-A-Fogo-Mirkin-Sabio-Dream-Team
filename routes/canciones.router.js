@@ -1,11 +1,12 @@
 import { Router } from "express";
-import CancionesController from '../controllers/canciones.controller.js'
+import {verifyAdmin, verifyToken} from '../middlewares/auth.middleware.js'
+import CancionesController from '../controllers/canciones.controller.js';
 
 const router = Router()
 
-router.get("/canciones", CancionesController.getCanciones);
-router.post('/', verifyToken, verifyAdmin, CancionController.createCancion);
-router.put('/:id', verifyToken, verifyAdmin, CancionController.updateCancion);
-router.delete('/:id', verifyToken, verifyAdmin, CancionController.deleteCancion);
+router.get("/", CancionesController.getCanciones);
+router.post("/", verifyToken, verifyAdmin, CancionesController.createCancion);
+//router.put('/canciones/:id', verifyToken, verifyAdmin, CancionesController.updateCancion);
+//router.delete('/canciones/:id', verifyToken, verifyAdmin, CancionesController.deleteCancion);
 
 export default router;
