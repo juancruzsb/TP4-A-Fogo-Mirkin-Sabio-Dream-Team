@@ -20,32 +20,6 @@ app.get('/about', (req, res) => {
 app.use('/canciones', cancionesRouter);
 app.use('/auth', authRouter)
 
-app.post('/crearusuario', async (req, res) => {
-  const user = req.body;
-
-  if (!user.nombre || !user.password || !user.userid) {
-    return res.status(400).json({ mesagge: "Debe completar todos los campos" })
-  }
-
-  try {
-    const client = new Client(config);
-    await client.connect();
-
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    user.password = hashedPassword;
-
-    let result = await client.query("INSERT INTO usuario VALUES ($1, $2, $3) RETURNING *", 
-      [user.userid, user.password, user.nombre]);
-
-    await client.end();
-    
-    console.log("Rows creadas: ", result.rowCount);
-    res.send(result.rows);
-
-  } catch (err) {
-    return res.status(500).json({ mesagge: err.mesagge });
-  }
-});
 
 app.post('/login', async (req, res) => {
   const user = req.body;

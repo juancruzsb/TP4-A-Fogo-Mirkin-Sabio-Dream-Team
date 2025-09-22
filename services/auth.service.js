@@ -12,5 +12,14 @@ const authService = {}
     await client.end()
     return result;
   }
-  
+  authService.crearusuario = async (user) => {
+    const client = new Client(config);
+    await client.connect();
+
+    let result = await client.query("INSERT INTO usuario VALUES ($1, $2, $3) RETURNING *", 
+      [user.userid, user.password, user.nombre]);
+
+    await client.end();
+    return result;
+  }
 export default authService
