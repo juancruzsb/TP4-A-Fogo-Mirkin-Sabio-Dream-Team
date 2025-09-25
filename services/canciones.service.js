@@ -12,6 +12,7 @@ const CancionesService = {}
     await client.end()
     return rows;
   }
+
   CancionesService.createCancion = async (cancion) => {
     const client = new Client(config);
     await client.connect();
@@ -31,16 +32,19 @@ const CancionesService = {}
   CancionesService.deleteCancion = async (cancion) => {
     const client = new Client(config);
     await client.connect();
-    try{
-    await client.query("BEGIN")
-    await client.query("DELETE FROM escucha WHERE cancion_id = $1", [cancion.id])
-    const {rows} = await client.query("DELETE FROM canciones WHERE id = $1 RETURNING *",[cancion.id]);
-  await client.query("COMMIT")
-  return rows;}
-  catch(error) {
-    await client.query("ROLLBACK");
-    throw error
-  }
-   finally {await client.end()}
+    try {
+      await client.query("BEGIN")
+      await client.query("DELETE FROM escucha WHERE cancion_id = $1", [cancion.id])
+      
+      const {rows} = await client.query("DELETE FROM canciones WHERE id = $1 RETURNING *",[cancion.id]);
+      await client.query("COMMIT")
+
+      return rows;
+    } catch(error) {
+      await client.query("ROLLBACK");
+      throw error
+    }
+
+    finally {await client.end()}
   }
 export default CancionesService
