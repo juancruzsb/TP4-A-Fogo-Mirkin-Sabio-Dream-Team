@@ -6,7 +6,8 @@ const router = Router()
 
 router.get("/", CancionesController.getCanciones);
 router.post("/", verifyToken, verifyAdmin, CancionesController.createCancion);
-//router.put('/canciones/:id', verifyToken, verifyAdmin, CancionesController.updateCancion);
-//router.delete('/canciones/:id', verifyToken, verifyAdmin, CancionesController.deleteCancion);
+router.put('/', verifyToken, verifyAdmin, CancionesController.updateCancion);
+router.delete('/', verifyToken, verifyAdmin, CancionesController.deleteCancion);
+//router.get('/escucho', verifyToken, CancionesControlles.getEscucho)
 
 export default router;
