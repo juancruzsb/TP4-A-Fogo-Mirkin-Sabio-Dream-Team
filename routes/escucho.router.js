@@ -4,6 +4,7 @@ import escuchoController from '../controllers/escucho.controller.js';
 
 const router = Router()
 
-router.post('/', verifyToken, escuchoController.grabarEscucha)
+router.post('/', verifyToken, escuchoController.grabarEscucha);
+router.get('/', verifyToken, escuchoController.getEscucho);
 
 export default router;

@@ -20,7 +20,8 @@ authController.login = async (req, res) => {
       
           const payload = {
             id: dbUser.id,
-            name: dbUser.nombre
+            name: dbUser.nombre,
+            rol: dbUser.rol
           }
       
           const options = {

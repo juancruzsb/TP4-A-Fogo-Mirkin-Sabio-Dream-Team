@@ -16,7 +16,7 @@ const CancionesService = {}
   CancionesService.createCancion = async (cancion) => {
     const client = new Client(config);
     await client.connect();
-    const rows = await client.query("INSERT INTO canciones VALUES ($1, $2) RETURNING *", [cancion.nombre])
+    const rows = await client.query("INSERT INTO canciones (nombre) VALUES ($1) RETURNING *", [cancion.nombre])
     await client.end()
     return rows; 
   }
