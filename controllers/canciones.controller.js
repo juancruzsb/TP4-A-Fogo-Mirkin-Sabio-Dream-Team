@@ -1,4 +1,4 @@
-import CancionesService from '../services/canciones.service.js '
+import CancionesService from '../services/canciones.service.js'
 
 const CancionesController = {}
 
