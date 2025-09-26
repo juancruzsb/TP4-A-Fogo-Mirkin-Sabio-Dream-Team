@@ -1,4 +1,4 @@
-import EscuchoService from '../services/escucho.service.js '
+import EscuchoService from '../services/escucho.service.js'
 
 const EscuchoController = {}
 
