@@ -28,7 +28,7 @@ EscuchoService.grabarEscucha = async (user, cancionID) => {
  EscuchoService.getEscucho = async (user) => {
     const client = new Client(config);
     await client.connect();
-    const rows = await client.query('SELECT * FROM escucha WHERE usuarioID = $1', [user.id])
+    const rows = await client.query('SELECT * FROM escucha WHERE "usuarioID" = $1', [user.id])
     await client.end();
     return rows
   
