@@ -13,7 +13,7 @@ EscuchoController.grabarEscucha = async (req, res) => {
     }
 }
 EscuchoController.getEscucho = async (req, res) => {
-   const userid= req.body.userid;
+   const userid= req.userid;
     if(!userid) return res.status(400).json('no se insertó un userid')
     try {
         const escuchas = await EscuchoService.getEscucho(userid);
