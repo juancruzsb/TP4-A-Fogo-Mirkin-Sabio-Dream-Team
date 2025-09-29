@@ -34,7 +34,7 @@ const CancionesService = {}
     await client.connect();
     try {
       await client.query("BEGIN")
-      await client.query("DELETE FROM escucha WHERE cancion_id = $1", [cancion.id])
+      await client.query('DELETE FROM escucha WHERE "cancionID" = $1', [cancion.id])
       
       const {rows} = await client.query("DELETE FROM canciones WHERE id = $1 RETURNING *",[cancion.id]);
       await client.query("COMMIT")
