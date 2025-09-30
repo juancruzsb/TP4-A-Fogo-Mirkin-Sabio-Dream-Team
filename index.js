@@ -24,26 +24,6 @@ app.use('/auth', authRouter);
 
 app.use('/escucho', escuchoRouter);
 
-app.post('/escucho', async (req, res) => {
-  let token = req.body.token;
-  let payloadOriginal = null;
-
-  try {
-    payloadOriginal = await jwt.verify(token, secretKey);
-
-    const client = new Client(config);
-    await client.connect();
-
-    let result = await client.query('SELECT * FROM escucha WHERE "usuarioID" = $1', 
-    [payloadOriginal.id]
-    );
-
-    res.send(result.rows);
-  } catch (err) {
-    res.status(500).json({ message: err.message })
-  }
-});
-
 app.listen(PORT, () => {
   console.log(`✅ Server is running on port ${PORT}`);
 })

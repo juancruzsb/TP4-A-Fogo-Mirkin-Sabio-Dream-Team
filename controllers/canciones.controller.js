@@ -33,7 +33,7 @@ if(!cancion.id || !cancion.nombre) return res.status(400).json({message: 'se deb
     res.json(result);
     }
     catch(e) {
-        console.log(e);;
+        console.log(e);
         res.status(500).json({message: e.message})
     }
 

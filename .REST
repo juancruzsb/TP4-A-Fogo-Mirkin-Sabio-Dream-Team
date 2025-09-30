@@ -1,0 +1,71 @@
+
+###About
+GET https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/about HTTP/1.1
+content-type: application/json
+
+
+###Auth
+
+POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/auth/crearusuario HTTP/1.1
+content-type: application/json
+
+{
+"userid": "Lean1",
+"nombre": "Leandro",
+"password": "12345"
+}
+###
+
+POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/auth/login HTTP/1.1
+content-type: application/json
+
+{
+"userid": "Lean1",
+"password": "12345"
+}
+
+###Cancion
+
+
+POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/cancion HTTP/1.1
+content-type: application/json
+Authorization: token 
+{
+"nombre": "La guitarra de Lean"
+}
+
+###
+GET https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/canciones HTTP/1.1
+content-type: application/json
+Authorization: token
+
+###
+
+PUT https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/canciones HTTP/1.1
+content-type: application/json
+Authorization: token 
+{
+    "id": 1,
+"nombre": "La guitarra de Lean"
+}
+###
+DELETE https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/canciones HTTP/1.1
+content-type: application/json
+Authorization: token 
+{
+"id": 1
+}
+
+###ESCUCHO
+
+GET https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/escucho HTTP/1.1
+content-type: application/json
+Authorization: token 
+###
+POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/escucho HTTP/1.1
+content-type: application/json
+Authorization: token
+{
+"cancionID": 2    
+}
+

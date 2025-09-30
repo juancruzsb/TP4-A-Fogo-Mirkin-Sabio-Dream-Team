@@ -2,6 +2,7 @@ import authService from '../services/auth.service.js'
 import bcrypt from 'bcrypt'
 import  jwt  from 'jsonwebtoken'
 const authController = {}
+
 authController.login = async (req, res) => {
     let user = req.body;
     if (!user.password || !user.userid) {
