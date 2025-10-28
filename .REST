@@ -64,7 +64,8 @@ Authorization: token
 ###
 POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/escucho HTTP/1.1
 content-type: application/json
-Authorization: token
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhvbGEiLCJuYW1lIjoiaG9sYSIsInJvbCI6dHJ1ZSwiaWF0IjoxNzYxNjYyNDU5LCJleHAiOjE3NjIwMjI0NTksImlzcyI6Im9ydCJ9.LmZ4Mve1wvQSSZue4-YWo3bQam5cJ4W_6533CcdMKnk
+
 {
 "cancionID": 2,
 "date": "2025-10-28"
