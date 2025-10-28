@@ -3,6 +3,17 @@
 // export POSTGRES_PASSWORD=xxxxx
 // 
 
+import { Sequelize } from "sequelize";
+
+export const sequelize = new Sequelize(process.env.DB_URL, {dialect: "postgres"});
+try{
+    await sequelize.authenticate();
+    console.log("Conección extablecida");
+} catch (error){
+    console.log("No se pudo conectar a la base de datos: ", error);
+}
+await sequelize.close();
+
 
 export const config = {
     host :process.env.PGHOST,
@@ -12,6 +23,4 @@ export const config = {
     port:5432,
     ssl: true
 }
-
-
  

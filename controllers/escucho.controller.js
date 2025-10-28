@@ -4,8 +4,9 @@ const EscuchoController = {}
 
 EscuchoController.grabarEscucha = async (req, res) => {
     const body = req.body
+    if(!body.date || !body.cancionID || !req.user) return res.status(400).json('falta algun dato')
     try{
-        const escucha = await EscuchoService.grabarEscucha(req.user, body.cancionID);
+        const escucha = await EscuchoService.grabarEscucha(req.user, body.cancionID, body.date);
         res.json(escucha)
     } catch (err) {
         console.error(err);

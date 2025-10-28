@@ -20,8 +20,8 @@ POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/auth/login HTTP/1.1
 content-type: application/json
 
 {
-"userid": "Lean1",
-"password": "12345"
+"userid": "hola",
+"password": "hola"
 }
 
 ###Cancion
@@ -29,7 +29,7 @@ content-type: application/json
 
 POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/cancion HTTP/1.1
 content-type: application/json
-Authorization: token 
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhvbGEiLCJuYW1lIjoiaG9sYSIsInJvbCI6dHJ1ZSwiaWF0IjoxNzU5MjQzMDE1LCJleHAiOjE3NTk2MDMwMTUsImlzcyI6Im9ydCJ9.xyyGPLx_wrSKd74E6IdZPm9_WrRxlujK_bYwd1tBeEA
 {
 "nombre": "La guitarra de Lean"
 }
@@ -66,6 +66,7 @@ POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/escucho HTTP/1.1
 content-type: application/json
 Authorization: token
 {
-"cancionID": 2    
+"cancionID": 2,
+"date": "2025-10-28"
 }
 
