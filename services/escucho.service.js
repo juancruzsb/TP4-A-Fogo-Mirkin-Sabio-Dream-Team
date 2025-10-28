@@ -7,7 +7,7 @@ const EscuchoService = {}
 EscuchoService.grabarEscucha = async (user, cancionID, date) => {
     const client = new Client(config);
     await client.connect();
-        const rows = await client.query('INSERT INTO escucha ("usuarioID", "cancionID", fecha-escucha) VALUES ($1, $2, $3) RETURNING *', [user.id, cancionID, date]);
+        const rows = await client.query('INSERT INTO escucha ("usuarioID", "cancionID", "fecha-escucha") VALUES ($1, $2, $3) RETURNING *', [user.id, cancionID, date]);
         await client.end()
         return rows;
 

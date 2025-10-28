@@ -16,7 +16,7 @@ content-type: application/json
 }
 ###
 
-POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/auth/login HTTP/1.1
+POST http://localhost:8000/auth/login HTTP/1.1
 content-type: application/json
 
 {
@@ -62,9 +62,9 @@ GET https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/escucho HTTP/1.1
 content-type: application/json
 Authorization: token 
 ###
-POST https://tp-4-a-fogo-mirkin-sabio-dream-team.vercel.app/escucho HTTP/1.1
+POST http://localhost:8000/escucho HTTP/1.1
 content-type: application/json
-Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhvbGEiLCJuYW1lIjoiaG9sYSIsInJvbCI6dHJ1ZSwiaWF0IjoxNzYxNjYyNDU5LCJleHAiOjE3NjIwMjI0NTksImlzcyI6Im9ydCJ9.LmZ4Mve1wvQSSZue4-YWo3bQam5cJ4W_6533CcdMKnk
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhvbGEiLCJuYW1lIjoiaG9sYSIsInJvbCI6dHJ1ZSwiaWF0IjoxNzYxNjYzNzA1LCJleHAiOjE3NjIwMjM3MDUsImlzcyI6Im9ydCJ9.Ax7yJoaKa6N9RDHzVdjoDk7A9v48aVYPhANUbj20lns
 
 {
 "cancionID": 2,
