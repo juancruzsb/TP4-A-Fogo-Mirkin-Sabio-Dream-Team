@@ -12,8 +12,6 @@ try{
 } catch (error){
     console.log("No se pudo conectar a la base de datos: ", error);
 }
-await sequelize.close();
-
 
 export const config = {
     host :process.env.PGHOST,

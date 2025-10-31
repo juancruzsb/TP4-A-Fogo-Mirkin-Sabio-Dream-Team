@@ -4,32 +4,20 @@ import cors from 'cors'
 import cancionesRouter from './routes/canciones.router.js'
 import authRouter from './routes/auth.router.js';
 import escuchoRouter from './routes/escucho.router.js'
-import { DataTypes, Model } from "sequelize";
 import { sequelize } from "./dbconfig.js";
-import CancionesController from "./controllers/canciones.controller.js";
+import { Canciones } from "./models/canciones.models.js";
+import { Usuario } from "./models/usuario.models.js";
+import { Escucha } from "./models/escucha.models.js";
+
+Canciones.belongsToMany(Usuario, {through: Escucha});
+Usuario.belongsToMany(Canciones, {through: Escucha});
+await sequelize.sync();
+
+
 const app = express()
 app.use(express.json());
 app.use(cors())
 const PORT = 8000
-
-Cancion.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    sequelize,
-    modelName: "cancion",
-    tableName: "cancion",
-  }
-);
 
 app.get('/', (req, res) => {
   res.send('Hello World')

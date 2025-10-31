@@ -1,25 +1,18 @@
-import pkg from 'pg'
-const {Client} = pkg;
-import {config} from '../dbconfig.js'
+import {config, sequelize} from '../dbconfig.js'
+import { Usuario } from '../models/usuario.models.js';
+
 
 const authService = {}
 
- authService.login = async (user) => {
-    const client = new Client(config);
-    await client.connect();
-    let result = await client.query("SELECT * FROM usuario WHERE id = $1", 
-    [user.userid]);
-    await client.end()
-    return result;
-  }
-  authService.crearusuario = async (user) => {
-    const client = new Client(config);
-    await client.connect();
+authService.login = async (user) => {
+  const result = await Usuario.findByPk(user.userid);
+  console.log(result);
+  return result;
+}
 
-    let result = await client.query("INSERT INTO usuario VALUES ($1, $2, $3) RETURNING *", 
-      [user.userid, user.password, user.nombre]);
+authService.crearusuario = async (user) => {
+  const newUser = await Usuario.create({nombre: user.nombre, id: user.id, password: user.password})
+  return newUser;
+}
 
-    await client.end();
-    return result;
-  }
 export default authService

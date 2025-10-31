@@ -1,50 +1,55 @@
-import pkg from 'pg'
-const {Client} = pkg;
 import {config} from '../dbconfig.js'
+import { sequelize } from '../dbconfig.js';
+import { Canciones } from '../models/canciones.models.js';
+import { Escucha } from '../models/escucha.models.js';
 
 const CancionesService = {}
 
 
  CancionesService.getCanciones = async () => {
-    const client = new Client(config);
-    await client.connect();
-    const {rows} = await client.query("select * from canciones");
-    await client.end()
+    const { rows } = await Canciones.findAll();
+    console.log(rows)
     return rows;
   }
 
   CancionesService.createCancion = async (cancion) => {
-    const client = new Client(config);
-    await client.connect();
-    const rows = await client.query("INSERT INTO canciones (nombre) VALUES ($1) RETURNING *", [cancion.nombre])
-    await client.end()
-    return rows; 
+    const newCancion = await Canciones.create({nombre: cancion.nombre})
+    console.log(newCancion);
+    return newCancion; 
   }
 
   CancionesService.updateCancion = async (cancion) => {
-    const client = new Client(config);
-    await client.connect();
-    const {rows} = await client.query("UPDATE canciones SET nombre = $1 WHERE id = $2 RETURNING *", [cancion.nombre, cancion.id])
-    await client.end()
-    return rows;
+    const cancionModificada = await Canciones.update(
+      {
+        'nombre': cancion.nombre
+      },
+      {
+        where: {'id': cancion.id},
+        returning: true,
+      },
+    );
+
+    console.log(cancionModificada);
+    return cancionModificada;
   }
 
   CancionesService.deleteCancion = async (cancion) => {
-    const client = new Client(config);
-    await client.connect();
-    try {
-      await client.query("BEGIN")
-      await client.query('DELETE FROM escucha WHERE "cancionID" = $1', [cancion.id])
-      
-      const {rows} = await client.query("DELETE FROM canciones WHERE id = $1 RETURNING *",[cancion.id]);
-      await client.query("COMMIT")
+    const t = await sequelize.transaction();
 
-      return rows;
+    try {
+      await Escucha.destroy(
+        { where: {'cancionID': cancion.id} },
+        { transaction: t }
+      );
+
+      const cancionEliminar = await Canciones.findByPk(cancion.id);
+      await cancionEliminar.destroy({ transaction: t });
+
+      await t.commit();
+      return cancionEliminar;
     } catch(error) {
-      await client.query("ROLLBACK");
+      await t.rollback();
       throw error
     }
-
-    finally {await client.end()}
   }
 export default CancionesService

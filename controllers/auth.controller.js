@@ -10,7 +10,6 @@ authController.login = async (req, res) => {
       }
     try {
         const result = await authService.login(user);
-        
 
         if (result.rowCount === 0) {
             return res.status(404).json({ message: "Usuario no encontrado" })
