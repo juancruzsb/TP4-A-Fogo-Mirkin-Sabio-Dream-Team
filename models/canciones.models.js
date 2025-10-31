@@ -18,5 +18,6 @@ Canciones.init(
       sequelize,
       modelName: "canciones",
       tableName: "canciones",
+      timestamps: false,
     }
   );

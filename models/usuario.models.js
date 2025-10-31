@@ -23,5 +23,6 @@ Usuario.init(
         sequelize,
         modelName: "usuario",
         tableName: "usuario",
+        timestamps: false,
     }
 );

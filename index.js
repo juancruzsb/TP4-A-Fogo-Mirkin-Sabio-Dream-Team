@@ -9,8 +9,16 @@ import { Canciones } from "./models/canciones.models.js";
 import { Usuario } from "./models/usuario.models.js";
 import { Escucha } from "./models/escucha.models.js";
 
-Canciones.belongsToMany(Usuario, {through: Escucha});
-Usuario.belongsToMany(Canciones, {through: Escucha});
+Canciones.belongsToMany(Usuario, {
+    through: Escucha,
+    foreignKey: 'cancionID',
+    otherKey: 'usuarioID'
+});
+Usuario.belongsToMany(Canciones, {
+    through: Escucha,
+    foreignKey: 'usuarioID',
+    otherKey: 'cancionID'
+});
 await sequelize.sync();
 
 

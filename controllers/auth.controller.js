@@ -15,7 +15,7 @@ authController.login = async (req, res) => {
             return res.status(404).json({ message: "Usuario no encontrado" })
           }
       
-          let dbUser = result.rows[0];
+          let dbUser = result;
           const passOK = await bcrypt.compare(user.password, dbUser.password);
       
           const payload = {
@@ -53,10 +53,10 @@ authController.crearusuario = async (req, res) => {
     const hashedPassword = await bcrypt.hash(user.password, 10);
     user.password = hashedPassword;
     let result = await authService.crearusuario(user);
-    console.log("Rows creadas: ", result.rowCount);
-    res.send(result.rows);
+    res.send(result);
   }
   catch(e) {
+    console.error(e);
     return res.status(500).json({ mesagge: e.mesagge });
   }
 

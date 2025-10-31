@@ -11,7 +11,8 @@ authService.login = async (user) => {
 }
 
 authService.crearusuario = async (user) => {
-  const newUser = await Usuario.create({nombre: user.nombre, id: user.id, password: user.password})
+  const newUser = await Usuario.create({nombre: user.nombre, id: user.userid, password: user.password})
+  console.log(newUser);
   return newUser;
 }
 

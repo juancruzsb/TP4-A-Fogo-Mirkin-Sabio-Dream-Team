@@ -29,8 +29,8 @@ CancionesController.updateCancion = async (req, res) => {
 const cancion = req.body
 if(!cancion.id || !cancion.nombre) return res.status(400).json({message: 'se deben completar todos los campos'})
     try {
-    const result = await CancionesService.updateCancion(cancion)
-    res.json(result);
+        const result = await CancionesService.updateCancion(cancion)
+        res.json(result);
     }
     catch(e) {
         console.log(e);

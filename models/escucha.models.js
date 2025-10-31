@@ -26,5 +26,6 @@ Escucha.init(
         sequelize,
         modelName: "escucha",
         tableName: "escucha",
+        timestamps: false,
     }
 );

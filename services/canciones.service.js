@@ -7,14 +7,14 @@ const CancionesService = {}
 
 
  CancionesService.getCanciones = async () => {
-    const { rows } = await Canciones.findAll();
-    console.log(rows)
-    return rows;
+    const canciones = await Canciones.findAll();
+    console.log(canciones)
+    return canciones;
   }
 
   CancionesService.createCancion = async (cancion) => {
     const newCancion = await Canciones.create({nombre: cancion.nombre})
-    console.log(newCancion);
+
     return newCancion; 
   }
 
@@ -43,6 +43,7 @@ const CancionesService = {}
       );
 
       const cancionEliminar = await Canciones.findByPk(cancion.id);
+
       await cancionEliminar.destroy({ transaction: t });
 
       await t.commit();

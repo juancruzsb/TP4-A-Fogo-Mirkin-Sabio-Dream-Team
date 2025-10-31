@@ -7,17 +7,15 @@ import { Escucha } from '../models/escucha.models.js';
 const EscuchoService = {}
 
 EscuchoService.grabarEscucha = async (user, cancionID, date) => {
-    const newEscucha = await Escucha.create({fecha_escucha : date.fecha_escucha},{usuarioID : user.id},{cancionID : cancionID} )
-    console.log(newEscucha);
-    return rows
+    const newEscucha = await Escucha.create({fecha_escucha: date, usuarioID: user.id, cancionID: cancionID} )
+    return newEscucha;
 }
 
 EscuchoService.getEscucho = async (user) => {
     const escuchas = await Escucha.findAll({
-            where:{ usuarioID:user.id }
-    })
-    console.log('Escuchas: ', JSON.stringify(escuchas,null,2))
-    return rows
+            where:{ usuarioID: user.id }
+    });
+    return escuchas;
 }
 
-export default EscuchoService
+export default EscuchoService;
